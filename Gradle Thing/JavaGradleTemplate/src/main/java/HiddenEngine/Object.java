@@ -1,5 +1,0 @@
-package HiddenEngine;
-
-class Object {
-
-}
