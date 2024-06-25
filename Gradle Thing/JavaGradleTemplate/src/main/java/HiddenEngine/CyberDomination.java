@@ -33,11 +33,12 @@ public class CyberDomination {
         // Window.FrameLimit = 10;
         //Window.HexadecimalColor = 0x123456;
         Window.Type = "fullscreen";
+        @SuppressWarnings("unused")
         long WindowHandle = new Window().Create();
 
         TimeUnit.SECONDS.wait(2);
         Window.SetRGB(100, 150, 50, 200);
-        new Window().ChangeScene(1000f);
+        new Window().ChangeScene();
 
         //double x;
         //double y;

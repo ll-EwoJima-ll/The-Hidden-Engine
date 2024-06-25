@@ -15,7 +15,7 @@ public abstract class Frame {
         int TimeToChange = (int) Time.StartMilliTime();
         boolean Changing = true;
         Window.SetRGB(100, 200, 150, 15);
-        Window.ChangeScene(TimeToChange);
+        Window.ChangeScene();
         // Checks if it's time to switch yet
         while(Changing == true) {
             if (TimeToChange >= DeltaTime) {
@@ -43,7 +43,7 @@ public abstract class Frame {
             
             new Window();
             // Set The RGB
-            glClearColor(org.HiddenEngine.Window.NRed, org.HiddenEngine.Window.NGreen, org.HiddenEngine.Window.NBlue, org.HiddenEngine.Window.NAlpha);
+            glClearColor(HiddenEngine.Window.NRed, HiddenEngine.Window.NGreen, HiddenEngine.Window.NBlue, HiddenEngine.Window.NAlpha);
             
             // Clears the window buffer
             glClear(GL_COLOR_BUFFER_BIT);

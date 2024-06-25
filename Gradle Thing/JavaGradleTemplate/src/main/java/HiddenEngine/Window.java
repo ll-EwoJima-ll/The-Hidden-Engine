@@ -1,5 +1,5 @@
 package HiddenEngine;
-
+// Comment
 import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
 import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
 import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
@@ -143,8 +143,8 @@ static float NAlpha;
         return Window; // Returns the windows memory address
     }
 
-    public void ChangeScene(float NewScene) {
-        Frame.Update(NewScene);
+    public void ChangeScene() {
+        glClearColor(100, 155, 200, 255);
     }
 
     /*static float NRed;

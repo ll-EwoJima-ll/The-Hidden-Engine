@@ -2,6 +2,7 @@ package HiddenEngine;
 
 import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
 import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
+import static org.lwjgl.glfw.GLFW.glfwGetVideoModes;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
@@ -57,8 +58,10 @@ public class HardwareScan {
         long CurrentCPUTime = ((com.sun.management.OperatingSystemMXBean) OS).getProcessCpuTime();
         long CurrentNanoTime = System.nanoTime();
         // Get Resolution
-        
-        String Resolution = Integer.toString(ResolutionWidth) + 'x' + Integer.toString(ResolutionHeight);
+        int ResolutionWidth = glfwGetVideoModes(new Window().Window).width();
+        int ResolutionHeight = glfwGetVideoModes(new Window().Window).height();
+
+        String Resolution = Integer.toString(ResolutionWidth) + "x" + Integer.toString(ResolutionHeight);
 
         // Get RAM Usage
         Runtime RunTime = Runtime.getRuntime();
