@@ -56,22 +56,54 @@ import static org.lwjgl.glfw.GLFW.GLFW_REFRESH_RATE;
 
 @SuppressWarnings("unused")
 public class Window {
-static float NRed;
-static float NGreen;
-static float NBlue;
-static float NAlpha;
+    static int WindowWidth;
+    static int WindowHeight;
+
+    /*public void run() { // This function loops the window buffer & renders new frames
+        System.out.println("Thread Started!");
+        long loopstart = Time.StartMilliTime();
+        while (!glfwWindowShouldClose(Window)) {
+            glfwWindowHint(GLFW_REFRESH_RATE, new Window().FrameLimit);
+            // Poll events (Key/mouse events)
+            glfwPollEvents();
+            
+            // Set The RGB
+            //glClearColor(NRed, NGreen, NBlue, NAlpha);
+            
+            // Clears the window buffer
+            //glClear(GL_COLOR_BUFFER_BIT);
+
+            // Swaps the buffers to the last buffer sent to the hadle
+            glfwSwapBuffers(Window);
+
+            // Replace this with the Time.GetTimeInSeconds(); function
+            CurrentTime = Time.GetDiffInMilliSeconds(loopstart);
+            if (CurrentTime >= LastTime + 1000) {
+                System.out.println(CurrentFramesRendered);
+                CurrentFramesRendered = 0;
+                LastTime = CurrentTime;
+            }
+            
+            CurrentFramesRendered++;
+            LoopTime = LoopTime + CurrentTime;
+            FirstLoop = false;
+
+            System.out.println("Thread Finished");
+        }
+
+        //long CurrentTime = Time.GetDiffInMilliSeconds(loopstart);
+        //System.out.println(CurrentTime);
+    }*/
 
     public static long Window;
     static String Title;
-    static int Width;
-    static int Height;
     static String Type = "defult"; // Fullscreen, Windowed, Custom, ect.
     static boolean resizable = true;
     public int FrameLimit;
     private static int CurrentScene = -1;
 
 
-    public long Create() { // Initialize The Window
+    public int Create() { // Initialize The Window
         // Error Callback
         GLFWErrorCallback.createPrint(System.err).set();
 
@@ -91,12 +123,11 @@ static float NAlpha;
         if (Type.toLowerCase() == "maximized") {
             glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
         } else if(Type.toLowerCase() == "defult") {
-            Width = 300;
-            Height = 500;
+            WindowWidth = 300;
+            WindowHeight = 500;
 
         } else if(Type.toLowerCase() == "fullscreen") {
             //glfwSetWindowMonitor(Window, Monitor, 0, 0, mode.width(), mode.height(), mode.refreshRate());
-            GLFW.glfwWindowHint(GLFW.GLFW_DECORATED, 0);
         } else {
             System.out.println(Type + " Is Not A Valid Type. Please Choose Between maximized, defult, and fullscreen");
         }
@@ -109,7 +140,7 @@ static float NAlpha;
         if (Title == null) {
             Title = "";
         }
-        Window = glfwCreateWindow(Width, Height, Title, NULL, NULL);
+        Window = glfwCreateWindow(WindowWidth, WindowHeight, Title, NULL, NULL);
         
         if (Window == NULL) {
             throw new IllegalStateException("Failed To Create GLFW Window");
@@ -131,20 +162,31 @@ static float NAlpha;
         // TLDR: Everything Will Break Without The Next Line
         GL.createCapabilities();
 
-        glfwSetWindowSize(Window, Width, Height);
+        glfwSetWindowSize(Window, 1920 /*WindowWidth*/, 1080 /*WindowHeight*/);
         MemoryStack stack = stackPush();
         IntBuffer pWidth = stack.mallocInt(1);
         IntBuffer pHeight = stack.mallocInt(1);
         glfwGetWindowSize(Window, pWidth, pHeight);
         GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         glfwSetWindowPos(Window, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
-
-        LoopFrame(Window);
-        return Window; // Returns the windows memory address
+        //Window obj = new Window();
+        //obj.start();
+        return 0; // Returns the windows memory address
     }
 
+    public static void Size(int Width, int Height) {
+        WindowWidth = Width;
+        WindowHeight = Height;
+    }
+
+    static float NRed;
+    static float NGreen;
+    static float NBlue;
+    static float NAlpha;
+
     public void ChangeScene() {
-        glClearColor(100, 155, 200, 255);
+        //glClearColor(NRed, NGreen, NBlue, NAlpha);
+        //glfwSwapBuffers(Window);
     }
 
     /*static float NRed;
@@ -153,26 +195,22 @@ static float NAlpha;
     static float NAlpha;
     */
     public static void SetRGB(int Red, int Green, int Blue, int Alpha) {
-        // Make Sure The RGB Is Correct
-        float BackgroundRed = Red;
-        float BackgroundGreen = Green;
-        float BackgroundBlue = Blue;
-        float BackgroundAlpha = Alpha;
+        // Cast the integers into floats, and divide them in order to get the correct data/RGB
 
-        NRed = (int) (BackgroundRed / 255.0f);
-        NGreen = (int) (BackgroundGreen / 255.0f);
-        NBlue = (int) (BackgroundBlue / 255.0f);
-        NAlpha = (int) (BackgroundAlpha / 255.0f);
+        NRed = Red / 255.0f;
+        NGreen = Green / 255.0f;
+        NBlue = Blue / 255.0f;
+        NAlpha = Alpha / 255.0f;
 
     }
 
-    //int FPS; // Frames Per Second
     int CurrentFramesRendered;
     long LoopTime;
     boolean FirstLoop = true;
     long CurrentTime;
     long LastTime;
-    public void LoopFrame(long Window) {
+
+    public void LoopFrame() { // This function loops the window buffer & renders new frames
         long loopstart = Time.StartMilliTime();
         while (!glfwWindowShouldClose(Window)) {
             glfwWindowHint(GLFW_REFRESH_RATE, new Window().FrameLimit);
