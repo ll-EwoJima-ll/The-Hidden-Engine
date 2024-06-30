@@ -15,7 +15,7 @@ public abstract class Frame {
         int TimeToChange = (int) Time.StartMilliTime();
         boolean Changing = true;
         Window.SetRGB(100, 200, 150, 15);
-        Window.ChangeScene();
+        //Window.ChangeScene();
         // Checks if it's time to switch yet
         while(Changing == true) {
             if (TimeToChange >= DeltaTime) {
