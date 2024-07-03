@@ -5,13 +5,13 @@ import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
 import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
 import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
 import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
-import static org.lwjgl.glfw.GLFW.glfwGetWindowMonitor;
+//import static org.lwjgl.glfw.GLFW.glfwGetWindowMonitor;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwInit;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowIcon;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowMonitor;
+//import static org.lwjgl.glfw.GLFW.glfwSetWindowIcon;
+//import static org.lwjgl.glfw.GLFW.glfwSetWindowMonitor;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowPos;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwShowWindow;
@@ -21,86 +21,47 @@ import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 //import static org.lwjgl.opengl.GL11.GL_DEPTH;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+//import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
-import static org.lwjgl.opengl.GL11.glColor3b;
-import static org.lwjgl.opengl.GL11.glColor3d;
+//mport static org.lwjgl.opengl.GL11.glColor3d;
 //import static org.lwjgl.opengl.GL11.glGetString;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.OperatingSystemMXBean;
+//import java.lang.management.ManagementFactory;
+//import java.lang.management.OperatingSystemMXBean;
 //import java.lang.management.ManagementFactory;
 import java.nio.IntBuffer;
-import java.util.Set;
+//import java.util.Set;
 
-import javax.management.monitor.Monitor;
+//import javax.management.monitor.Monitor;
 
-import org.lwjgl.glfw.GLFW;
+//import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWImage;
+//import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
 
-import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_DISABLED;
-import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_HIDDEN;
+//import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_DISABLED;
+//import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_HIDDEN;
 import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
 import static org.lwjgl.glfw.GLFW.GLFW_MAXIMIZED;
 import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
 import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
 import static org.lwjgl.glfw.GLFW.GLFW_REFRESH_RATE;
 
-@SuppressWarnings("unused")
 public class Window {
     static int WindowWidth;
     static int WindowHeight;
-
-    /*public void run() { // This function loops the window buffer & renders new frames
-        System.out.println("Thread Started!");
-        long loopstart = Time.StartMilliTime();
-        while (!glfwWindowShouldClose(Window)) {
-            glfwWindowHint(GLFW_REFRESH_RATE, new Window().FrameLimit);
-            // Poll events (Key/mouse events)
-            glfwPollEvents();
-            
-            // Set The RGB
-            //glClearColor(NRed, NGreen, NBlue, NAlpha);
-            
-            // Clears the window buffer
-            //glClear(GL_COLOR_BUFFER_BIT);
-
-            // Swaps the buffers to the last buffer sent to the hadle
-            glfwSwapBuffers(Window);
-
-            // Replace this with the Time.GetTimeInSeconds(); function
-            CurrentTime = Time.GetDiffInMilliSeconds(loopstart);
-            if (CurrentTime >= LastTime + 1000) {
-                System.out.println(CurrentFramesRendered);
-                CurrentFramesRendered = 0;
-                LastTime = CurrentTime;
-            }
-            
-            CurrentFramesRendered++;
-            LoopTime = LoopTime + CurrentTime;
-            FirstLoop = false;
-
-            System.out.println("Thread Finished");
-        }
-
-        //long CurrentTime = Time.GetDiffInMilliSeconds(loopstart);
-        //System.out.println(CurrentTime);
-    }*/
 
     public static long Window;
     static String Title;
     static String Type = "defult"; // Fullscreen, Windowed, Custom, ect.
     static boolean resizable = true;
     public int FrameLimit;
-    private static int CurrentScene = -1;
 
 
     public int Create() { // Initialize The Window
@@ -184,9 +145,10 @@ public class Window {
     static float NBlue;
     static float NAlpha;
 
-    public void ChangeScene() {
-        //glClearColor(NRed, NGreen, NBlue, NAlpha);
-        //glfwSwapBuffers(Window);
+    public void Update() {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glfwSwapBuffers(Window);
     }
 
     /*static float NRed;
@@ -221,7 +183,7 @@ public class Window {
             glClearColor(NRed, NGreen, NBlue, NAlpha);
             
             // Clears the window buffer
-            glClear(GL_COLOR_BUFFER_BIT);
+            //glClear(GL_COLOR_BUFFER_BIT);
 
             // Swaps the buffers to the last buffer sent to the hadle
             glfwSwapBuffers(Window);

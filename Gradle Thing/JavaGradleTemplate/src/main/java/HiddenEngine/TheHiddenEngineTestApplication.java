@@ -1,6 +1,8 @@
 package HiddenEngine;
 
-//import java.util.concurrent.TimeUnit;
+// Re inport the repository
+
+import java.util.concurrent.TimeUnit;
 
 public class TheHiddenEngineTestApplication {
     public static void main(String[] args) /*throws InterruptedException*/ {
@@ -18,6 +20,12 @@ public class TheHiddenEngineTestApplication {
         ///new Window().run();
         
         Window.SetRGB(100, 150, 50, 200);
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         //TimeUnit.SECONDS.sleep(3);
         //new Window().ChangeScene();
 
