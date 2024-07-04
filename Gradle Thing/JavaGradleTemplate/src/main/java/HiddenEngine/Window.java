@@ -196,7 +196,7 @@ public class Window {
 
             // Check If The TTR Is Up
             long CurrentTime = Time.GetDiffInMilliSeconds(loopstart);
-            if (CurrentTime >= TimeToRun) {
+            if (CurrentTime >= TimeToRun && TimeToRun != 0) {
                 break;
             }
             

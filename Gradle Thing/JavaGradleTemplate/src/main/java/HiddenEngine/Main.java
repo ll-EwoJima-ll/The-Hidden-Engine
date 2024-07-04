@@ -21,7 +21,7 @@ public class Main {
         Window.SetRGB(255, 100, 16, 150);
         Window.LoopFrame(3000);
         Window.SetRGB(100, 200, 150, 255);
-        Window.LoopFrame(5000);
+        Window.LoopFrame(0);
 
         //double x;
         //double y;
