@@ -2,14 +2,12 @@ package HiddenEngine;
 
 // Re inport the repository
 
-//import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) /*throws InterruptedException*/ {
-        //Window.Title = "The Hidden Engine";
+    public static void main(String[] args) {
+        Window.Title = "The Hidden Engine Test Application";
+        Window.Type = "Maximized";
         Window.Size(300, 500);
-        //Window.Width = 300;
-        //Window.Height = 500;
         //Window.SetRGB(200, 100, 50, 130);
 
         // Window.FrameLimit = 10;
@@ -18,10 +16,12 @@ public class Main {
         //Window.Type = "fullscreen";
         new Window().Create();
         ///new Window().run();
-        
-        Window.SetRGB(100, 150, 50, 200);
-        //TimeUnit.SECONDS.sleep(3);
-        //new Window().ChangeScene();
+    
+        System.out.println("TIME!!!");
+        Window.SetRGB(255, 100, 16, 150);
+        Window.LoopFrame(3000);
+        Window.SetRGB(100, 200, 150, 255);
+        Window.LoopFrame(5000);
 
         //double x;
         //double y;

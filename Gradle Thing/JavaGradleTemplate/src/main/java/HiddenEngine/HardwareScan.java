@@ -90,10 +90,7 @@ public class HardwareScan {
 
         // Create Window To Show Results
         new Window().Title = "Hardware Monitor";
-        @SuppressWarnings("unused")
-        int Width = new Window().Width = 300;
-        @SuppressWarnings("unused")
-        int Height = new Window().Height = 500;
+        new Window().Size(300, 500);
         GL.createCapabilities();
         
         

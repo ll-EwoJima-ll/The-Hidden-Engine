@@ -2,6 +2,19 @@ package HiddenEngine;
 
 public class Time {
 
+    public static void NanoTimer(int TimeLimit) {
+        float StartingTime = System.nanoTime();
+
+        boolean TimerGoing = true;
+        while (TimerGoing == true) {
+            float CurrentTime = System.nanoTime() - StartingTime;
+            if (CurrentTime >= TimeLimit) {
+                TimerGoing = false;
+            }
+
+        }
+    }
+
     public static void StartNanoTime(float TimeStartedInNano) {
         TimeStartedInNano = System.nanoTime();
     }

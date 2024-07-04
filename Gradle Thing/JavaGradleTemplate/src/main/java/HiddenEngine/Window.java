@@ -1,5 +1,5 @@
 package HiddenEngine;
-// Comment
+
 import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
 import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
 import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
@@ -20,6 +20,8 @@ import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+//import static org.lwjgl.opengl.GL11.GL_DEPTH;
+//import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 //import static org.lwjgl.opengl.GL11.GL_DEPTH;
 //import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
@@ -62,6 +64,12 @@ public class Window {
     static String Type = "defult"; // Fullscreen, Windowed, Custom, ect.
     static boolean resizable = true;
     public int FrameLimit;
+
+    // Background Color
+    public static float NRed;
+    public static float NGreen;
+    public static float NBlue;
+    public static float NAlpha;
 
 
     public int Create() { // Initialize The Window
@@ -123,15 +131,15 @@ public class Window {
         // TLDR: Everything Will Break Without The Next Line
         GL.createCapabilities();
 
-        glfwSetWindowSize(Window, 1920 /*WindowWidth*/, 1080 /*WindowHeight*/);
+        glfwSetWindowSize(Window, WindowWidth, WindowHeight);
         MemoryStack stack = stackPush();
         IntBuffer pWidth = stack.mallocInt(1);
         IntBuffer pHeight = stack.mallocInt(1);
         glfwGetWindowSize(Window, pWidth, pHeight);
         GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         glfwSetWindowPos(Window, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
-        //Window obj = new Window();
-        //obj.start();
+
+        LoopFrame(10);
         return 0; // Returns the windows memory address
     }
 
@@ -140,22 +148,12 @@ public class Window {
         WindowHeight = Height;
     }
 
-    static float NRed;
-    static float NGreen;
-    static float NBlue;
-    static float NAlpha;
-
-    public void Update() {
+    public static void Update() {
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glfwSwapBuffers(Window);
     }
 
-    /*static float NRed;
-    static float NGreen;
-    static float NBlue;
-    static float NAlpha;
-    */
     public static void SetRGB(int Red, int Green, int Blue, int Alpha) {
         // Cast the integers into floats, and divide them in order to get the correct data/RGB
 
@@ -166,13 +164,13 @@ public class Window {
 
     }
 
-    int CurrentFramesRendered;
-    long LoopTime;
-    boolean FirstLoop = true;
-    long CurrentTime;
-    long LastTime;
+    static int CurrentFramesRendered;
+    static long LoopTime;
+    static boolean FirstLoop = true;
+    static long CurrentTime;
+    static long LastTime;
 
-    public void LoopFrame() { // This function loops the window buffer & renders new frames
+    public static void LoopFrame(int TimeToRun) { // This function loops the window buffer & renders new frames
         long loopstart = Time.StartMilliTime();
         while (!glfwWindowShouldClose(Window)) {
             glfwWindowHint(GLFW_REFRESH_RATE, new Window().FrameLimit);
@@ -183,26 +181,28 @@ public class Window {
             glClearColor(NRed, NGreen, NBlue, NAlpha);
             
             // Clears the window buffer
-            //glClear(GL_COLOR_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT);
 
             // Swaps the buffers to the last buffer sent to the hadle
             glfwSwapBuffers(Window);
 
             // Replace this with the Time.GetTimeInSeconds(); function
             CurrentTime = Time.GetDiffInMilliSeconds(loopstart);
-            if (CurrentTime >= LastTime + 1000) {
+            if (CurrentTime >= LastTime + 1000 /*&& window is not minimized*/) {
                 System.out.println(CurrentFramesRendered);
                 CurrentFramesRendered = 0;
                 LastTime = CurrentTime;
+            }
+
+            // Check If The TTR Is Up
+            long CurrentTime = Time.GetDiffInMilliSeconds(loopstart);
+            if (CurrentTime >= TimeToRun) {
+                break;
             }
             
             CurrentFramesRendered++;
             LoopTime = LoopTime + CurrentTime;
             FirstLoop = false;
         }
-
-        //long CurrentTime = Time.GetDiffInMilliSeconds(loopstart);
-        //System.out.println(CurrentTime);
     }
-    
 }
