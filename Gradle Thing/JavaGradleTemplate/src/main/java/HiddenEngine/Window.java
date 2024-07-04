@@ -139,19 +139,13 @@ public class Window {
         GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         glfwSetWindowPos(Window, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
 
-        LoopFrame(10);
+        Update(10);
         return 0; // Returns the windows memory address
     }
 
     public static void Size(int Width, int Height) {
         WindowWidth = Width;
         WindowHeight = Height;
-    }
-
-    public static void Update() {
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-        glfwSwapBuffers(Window);
     }
 
     public static void SetRGB(int Red, int Green, int Blue, int Alpha) {
@@ -170,7 +164,7 @@ public class Window {
     static long CurrentTime;
     static long LastTime;
 
-    public static void LoopFrame(int TimeToRun) { // This function loops the window buffer & renders new frames
+    public static void Update(int TimeToRun) { // This function loops the window buffer & renders new frames
         long loopstart = Time.StartMilliTime();
         while (!glfwWindowShouldClose(Window)) {
             glfwWindowHint(GLFW_REFRESH_RATE, new Window().FrameLimit);
